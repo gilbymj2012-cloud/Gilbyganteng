@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ada Kejutan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Hanken+Grotesk:wght@400;700&display=swap">
+<style>
+:root{--bg:#ffe94a;--bg2:#ffd60a;--ink:#16110a;--muted:#4a3f12;--a:#ff3b3b;--b:#3a6bff;--cink:#16110a;--bink:#fffdf2;--display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;--body:"Hanken Grotesk",system-ui,-apple-system,sans-serif;color-scheme:light}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;min-height:100svh;background-color:var(--bg);background-image:radial-gradient(900px 520px at 80% -10%,var(--bg2),transparent 70%);color:var(--ink);font:400 17px/1.6 var(--body);padding-block:clamp(28px,8vh,80px);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body.shake{animation:shake .55s}
+@keyframes shake{0%,100%{transform:none}15%{transform:translate(-9px,4px) rotate(-1deg)}30%{transform:translate(8px,-5px) rotate(1deg)}45%{transform:translate(-7px,-3px)}60%{transform:translate(6px,5px) rotate(-1deg)}80%{transform:translate(-3px,2px)}}
+h1,h2{font-family:var(--display);font-weight:800;line-height:1.02;letter-spacing:-.02em;margin:0;text-wrap:balance}
+p{margin:0}
+.col{max-width:560px;margin-inline:auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;min-width:0}
+.wide{max-width:900px;margin-inline:auto;display:flex;flex-direction:column;gap:26px;min-width:0}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--a)}
+.title{font-size:clamp(38px,9vw,80px)}
+.stage.in{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hint{color:var(--muted);font-weight:700;min-height:1.6em;font-variant-numeric:tabular-nums}
+#mech{width:100%;display:flex;flex-direction:column;align-items:center;gap:18px;min-width:0}
+.btn{font:800 17px/1 var(--display);color:var(--bink);background:var(--a);border:0;border-radius:14px;padding:0 26px;min-height:54px;cursor:pointer;box-shadow:0 5px 0 rgba(0,0,0,.28);transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.28)}
+.btn.alt{background:var(--b)}
+button:focus-visible{outline:3px solid var(--a);outline-offset:4px}
+.giftbtn{background:none;border:0;padding:0;cursor:pointer;width:min(250px,66vw);animation:wiggle 2.4s ease-in-out infinite}
+.giftbtn svg{width:100%;height:auto;overflow:visible;display:block}
+.gbox{fill:var(--b)}.glid{fill:var(--b);filter:brightness(1.15)}.grib{fill:var(--a)}.gbow{fill:none;stroke:var(--a);stroke-width:9}
+#lid{transition:transform .7s cubic-bezier(.3,1.4,.5,1);transform-origin:36px 86px}
+.giftbtn.open{animation:none}.giftbtn.open #lid{transform:translateY(-54px) rotate(-16deg)}
+@keyframes wiggle{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-4deg)}84%{transform:rotate(4deg)}92%{transform:rotate(-2deg)}}
+.tap{width:min(210px,56vw);aspect-ratio:1;border-radius:50%;border:0;cursor:pointer;background:var(--bg2);display:grid;place-items:center;box-shadow:0 0 0 6px var(--a)}
+.tap svg{width:56%;height:56%;fill:var(--a)}
+.pop{animation:pop .3s}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+.bar{width:min(320px,100%);height:20px;border:3px solid var(--ink);border-radius:12px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--a);transition:width .2s}
+.num{font-family:var(--display);font-weight:800;font-size:clamp(120px,40vw,230px);line-height:1;color:var(--a)}
+.pct{font-family:var(--display);font-weight:800;font-size:clamp(64px,20vw,120px);line-height:1;font-variant-numeric:tabular-nums}
+.arena{position:relative;width:100%;height:min(50svh,380px);border:4px dashed var(--ink);border-radius:20px;overflow:hidden;touch-action:manipulation}
+.big{position:absolute;left:0;top:0;max-width:calc(100% - 8px);font:800 22px/1 var(--display);color:var(--bink);background:var(--a);border:4px solid var(--ink);border-radius:16px;padding:20px 26px;box-shadow:6px 6px 0 var(--ink);cursor:pointer;white-space:nowrap;transition:left .22s cubic-bezier(.3,1.5,.5,1),top .22s cubic-bezier(.3,1.5,.5,1),background .2s}
+.big.ok{background:var(--b)}
+.pesan{font-size:clamp(18px,2.6vw,22px);max-width:52ch}
+.sub{font-size:22px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:18px;list-style:none;margin:0;padding:0}
+.cards li{min-width:0;padding:20px 20px 22px;border-radius:16px;color:var(--cink);font-weight:600;line-height:1.45;box-shadow:0 10px 0 rgba(0,0,0,.22);transform:rotate(var(--tilt,0deg));background:var(--bgc)}
+.ttd{color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:14px}
+.mute{position:fixed;z-index:20;top:calc(12px + env(safe-area-inset-top,0px));right:max(12px,env(safe-area-inset-right,0px));min-height:44px;padding:0 16px;border-radius:22px;border:2px solid var(--muted);background:var(--bg);color:var(--ink);font:700 14px/1 var(--body);cursor:pointer}
+#cv{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10}
+@media (prefers-reduced-motion:reduce){.giftbtn{animation:none}.stage.in,body.shake{animation:none}#lid,.big{transition:none}}
+</style>
+</head>
+<body>
+<button class="mute" id="mute" type="button" hidden>Musik: nyala</button>
+<canvas id="cv" aria-hidden="true"></canvas>
+<main>
+  <section class="stage col in" id="gate">
+    <p class="eyebrow" id="gEy"></p>
+    <h1 class="title" id="gTitle"></h1>
+    <p class="hint" id="gSub"></p>
+    <div id="mech"></div>
+    <p class="hint" id="hint" aria-live="polite"></p>
+  </section>
+  <section class="stage wide" id="reveal" hidden>
+    <p class="eyebrow" id="rEy"></p>
+    <h1 class="title" id="rTitle"></h1>
+    <p class="pesan" id="pesan"></p>
+    <h2 class="sub" id="lt"></h2>
+    <ul class="cards" id="items"></ul>
+    <p class="ttd" id="ttd"></p>
+    <div class="row">
+      <button class="btn" id="again" type="button">Efek lagi</button>
+      <button class="btn alt" id="replay" type="button">Main lagi</button>
+    </div>
+  </section>
+</main>
+<script>
+(function surpriseRuntime(C){
+  const $=id=>document.getElementById(id), T=C.t;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const tgl=new Date().toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  $("gEy").textContent=C.eyebrowGate; $("gTitle").textContent=C.gateTitle; $("gSub").textContent=C.dari?"Dari "+C.dari+".":"";
+  $("rEy").textContent=C.eyebrowReveal+" · "+tgl; $("rTitle").textContent=C.judul; $("pesan").textContent=C.pesan;
+  $("lt").textContent=C.listTitle; $("lt").hidden=!C.items.length; $("items").hidden=!C.items.length;
+  $("ttd").textContent=C.dari?"Dengan sayang, "+C.dari+".":"";
+  const ul=$("items"); ul.innerHTML="";
+  C.items.forEach((s,i)=>{const li=document.createElement("li");li.style.setProperty("--bgc",T.cards[i%T.cards.length]);li.style.setProperty("--tilt",[-1.6,1.2,-.8,1.8,-1.2][i%5]+"deg");li.textContent=s;ul.appendChild(li)});
+
+  /* ---- partikel ---- */
+  const cv=$("cv"),cx=cv.getContext("2d");let W=0,H=0,parts=[],raf=0,ambient=false,amb=0;
+  function size(){const d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
+  addEventListener("resize",size);size();
+  const COLS=T.cards.concat([T.a,T.b]);
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+  function add(k,mode,x,y,vx,vy,g){
+    if(parts.length>260)return;
+    parts.push({k,mode,x,y,vx,vy,g,r:rnd(0,6.28),vr:(k==="balloon"?0:rnd(-.2,.2)),s:rnd(.8,1.4),c:COLS[(Math.random()*COLS.length)|0],t:0,life:mode==="float"?rnd(240,520):99999,ph:rnd(0,6.28)});
+  }
+  function pk(k){return k==="balloon"?"confetti":k==="firefly"?"star":k}
+  function burst(x,y,n,k){k=pk(k||C.efek);n=reduce?Math.ceil(n/4):n;for(let i=0;i<n;i++){const a=-Math.PI/2+rnd(-.9,.9),s=rnd(5,12);add(k,"fall",x,y,Math.cos(a)*s,Math.sin(a)*s,.25)}kick()}
+  function rain(n,k){n=reduce?Math.ceil(n/4):n;for(let i=0;i<n;i++)add(k,"fall",rnd(0,W),rnd(-H*.5,-20),rnd(-1,1),rnd(1,2.6),.02);kick()}
+  function rise(n,k){n=reduce?Math.ceil(n/4):n;for(let i=0;i<n;i++)add(k,"rise",rnd(0,W),H+rnd(20,H*.6),0,-rnd(1.2,3),0);kick()}
+  function floatp(n){n=reduce?Math.ceil(n/4):n;for(let i=0;i<n;i++)add("firefly","float",rnd(0,W),rnd(H*.1,H*.95),rnd(-.4,.4),rnd(-.4,.2),0);kick()}
+  function spawn(k,n){if(k==="balloon"||k==="heart")rise(n,k);else if(k==="firefly")floatp(n);else rain(n,k)}
+  function draw(p){
+    cx.save();cx.translate(p.x,p.y);cx.fillStyle=p.c;
+    if(p.k==="confetti"){cx.rotate(p.r);cx.fillRect(-4*p.s,-6*p.s,8*p.s,12*p.s)}
+    else if(p.k==="heart"){cx.rotate(p.r*.15);cx.scale(p.s*1.3,p.s*1.3);cx.beginPath();cx.moveTo(0,5);cx.bezierCurveTo(-9,-1,-7,-9,0,-4);cx.bezierCurveTo(7,-9,9,-1,0,5);cx.fill()}
+    else if(p.k==="star"){cx.rotate(p.r);cx.scale(p.s,p.s);cx.beginPath();for(let i=0;i<10;i++){const R=i%2?4:10,a=i*Math.PI/5-Math.PI/2;cx.lineTo(Math.cos(a)*R,Math.sin(a)*R)}cx.closePath();cx.fill()}
+    else if(p.k==="petal"){cx.rotate(p.r);cx.beginPath();cx.ellipse(0,0,4*p.s,8*p.s,0,0,6.283);cx.fill()}
+    else if(p.k==="balloon"){cx.rotate(Math.sin(p.ph)*.12);cx.scale(p.s*1.2,p.s*1.2);cx.beginPath();cx.ellipse(0,0,10,13,0,0,6.283);cx.fill();cx.strokeStyle=T.ink;cx.globalAlpha=.5;cx.lineWidth=1;cx.beginPath();cx.moveTo(0,13);cx.quadraticCurveTo(4,22,0,32);cx.stroke()}
+    else{const a=Math.max(0,Math.min(1,p.t/40,(p.life-p.t)/40))*(.55+.45*Math.sin(p.ph*2));const r=14*p.s,gr=cx.createRadialGradient(0,0,0,0,0,r);gr.addColorStop(0,p.c);gr.addColorStop(1,"rgba(255,255,255,0)");cx.globalAlpha=a;cx.fillStyle=gr;cx.beginPath();cx.arc(0,0,r,0,6.283);cx.fill()}
+    cx.restore();
+  }
+  function tick(){
+    cx.clearRect(0,0,W,H);
+    for(const p of parts){p.t++;p.ph+=.05;
+      if(p.mode==="rise"){p.y+=p.vy;p.x+=Math.sin(p.ph)*.6}
+      else if(p.mode==="float"){p.x+=p.vx+Math.sin(p.ph)*.3;p.y+=p.vy+Math.cos(p.ph*.8)*.3}
+      else{p.vy=Math.min(p.vy+p.g,6);p.vx*=.99;p.x+=p.vx;p.y+=p.vy;if(p.k==="petal")p.x+=Math.sin(p.ph)*.6}
+      p.r+=p.vr;draw(p)}
+    parts=parts.filter(p=>p.y<H+60&&p.y>-120&&p.t<p.life);
+    raf=(parts.length||ambient)?requestAnimationFrame(tick):0;
+  }
+  function kick(){if(!raf)raf=requestAnimationFrame(tick)}
+  function party(){
+    const k=C.efek;
+    if(k==="balloon"){rise(26,"balloon");burst(W*.2,H*.9,30,"confetti");burst(W*.8,H*.9,30,"confetti")}
+    else if(k==="firefly"){floatp(40);burst(W/2,H*.5,18,"star")}
+    else{burst(W*.15,H*.92,55,k);burst(W*.85,H*.92,55,k);rain(40,k)}
+  }
+  function startAmbient(){stopAmbient();if(C.efek==="confetti")return;ambient=true;amb=setInterval(()=>spawn(C.efek,C.efek==="firefly"?1:2),reduce?1600:600);kick()}
+  function stopAmbient(){ambient=false;clearInterval(amb)}
+
+  /* ---- musik ---- */
+  let ac=null,master=null,tmr=0,on=false;
+  const MEL=[[0,.75],[0,.25],[2,1],[0,1],[5,1],[4,2],[0,.75],[0,.25],[2,1],[0,1],[7,1],[5,2],[0,.75],[0,.25],[12,1],[9,1],[5,1],[4,1],[2,2],[10,.75],[10,.25],[9,1],[5,1],[7,1],[5,2]];
+  const CH={ceria:[[0,4,7],[7,11,14],[9,12,16],[5,9,12]],lembut:[[9,12,16],[5,9,12],[0,4,7],[7,11,14]]};
+  function note(n,t,d,base,type,vol){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=base*Math.pow(2,n/12);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+d*.95);o.connect(g);g.connect(master);o.start(t);o.stop(t+d)}
+  function loop(){
+    if(!on||!ac)return;let t=ac.currentTime+.05;
+    if(T.lagu==="ultah"){for(const m of MEL){note(m[0],t,m[1]*.5,261.63,"triangle",.16);t+=m[1]*.5}}
+    else{const soft=T.mood==="lembut",step=soft?.55:.32,base=soft?130.81:261.63;
+      for(const c of CH[T.mood]||CH.ceria){const seq=[c[0],c[1],c[2],c[1]+12,c[2],c[1],c[0]+12,c[1]];for(const n of seq){note(n,t,step,base,soft?"sine":"triangle",soft?.14:.12);t+=step}}}
+    tmr=setTimeout(loop,(t-ac.currentTime+.8)*1000);
+  }
+  function musicOn(){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(ac.state==="suspended")ac.resume();master=ac.createGain();master.connect(ac.destination);on=true;loop()}catch(e){on=false}$("mute").textContent="Musik: "+(on?"nyala":"mati")}
+  function musicOff(){on=false;clearTimeout(tmr);if(master){try{master.disconnect()}catch(e){}master=null}$("mute").textContent="Musik: mati"}
+  $("mute").onclick=()=>on?musicOff():musicOn();
+  function startMusic(){if(C.musik&&!on){$("mute").hidden=false;musicOn()}}
+
+  /* ---- layar ---- */
+  function show(id){["gate","reveal"].forEach(s=>$(s).hidden=s!==id);const el=$(id);el.classList.remove("in");void el.offsetWidth;el.classList.add("in");scrollTo(0,0)}
+  function reveal(){
+    show("reveal");
+    if(C.mekanik==="kabur"){document.body.classList.remove("shake");void document.body.offsetWidth;document.body.classList.add("shake");try{navigator.vibrate&&navigator.vibrate([80,40,80])}catch(e){}}
+    party();startAmbient();
+  }
+  const mech=$("mech"),hint=$("hint");
+  function center(el){const r=el.getBoundingClientRect();return[r.left+r.width/2,r.top+r.height/2]}
+
+  function gift(){
+    mech.innerHTML='<button class="giftbtn" id="gb" type="button"><svg viewBox="0 0 200 200" aria-hidden="true"><rect class="gbox" x="30" y="96" width="140" height="94" rx="8"/><rect class="grib" x="92" y="96" width="16" height="94"/><g id="lid"><rect class="glid" x="20" y="68" width="160" height="32" rx="8"/><rect class="grib" x="92" y="68" width="16" height="32"/><ellipse class="gbow" cx="78" cy="56" rx="22" ry="13" transform="rotate(-22 78 56)"/><ellipse class="gbow" cx="122" cy="56" rx="22" ry="13" transform="rotate(22 122 56)"/><circle class="grib" cx="100" cy="64" r="9"/></g></svg></button>';
+    const b=$("gb");b.setAttribute("aria-label",C.tombol);hint.textContent=C.tombol;
+    b.onclick=()=>{b.classList.add("open");b.onclick=null;startMusic();const c=center(b);burst(c[0],c[1]-20,50);setTimeout(reveal,1000)};
+  }
+  function ketuk(){
+    const N=C.jumlah,icon=(C.efek==="star"||C.efek==="confetti")?"star":"heart";
+    const path=icon==="star"?"M50 6 L61 38 L95 38 L67 58 L78 92 L50 71 L22 92 L33 58 L5 38 L39 38 Z":"M50 90 C8 58 8 14 34 14 C44 14 50 22 50 28 C50 22 56 14 66 14 C92 14 92 58 50 90 Z";
+    mech.innerHTML='<button class="tap" id="tp" type="button"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="'+path+'"/></svg></button><div class="bar"><i id="fi"></i></div>';
+    const b=$("tp");b.setAttribute("aria-label",C.tombol);let i=0;hint.textContent=C.tombol+" (0/"+N+")";
+    b.onclick=()=>{i++;startMusic();$("fi").style.width=(i/N*100)+"%";hint.textContent=i<N?C.tombol+" ("+i+"/"+N+")":"Sebentar lagi…";
+      b.classList.remove("pop");void b.offsetWidth;b.classList.add("pop");const c=center(b);burst(c[0],c[1],8,icon);
+      if(i>=N){b.onclick=null;burst(c[0],c[1],50,icon);setTimeout(reveal,700)}};
+  }
+  function hitung(){
+    mech.innerHTML='<button class="btn" id="hb" type="button"></button>';
+    const b=$("hb");b.textContent=C.tombol;hint.textContent="";
+    const lines=C.hitung&&C.hitung.length?C.hitung:["Siap?","Sedikit lagi…","Satu…"];
+    b.onclick=()=>{b.onclick=null;startMusic();mech.innerHTML='<div class="num" id="nm" aria-live="assertive">3</div>';
+      let n=3;const step=()=>{$("nm").textContent=n;hint.textContent=lines[3-n]||"";const e=$("nm");e.classList.remove("pop");void e.offsetWidth;e.classList.add("pop");
+        if(n===1){setTimeout(reveal,1100)}else{n--;setTimeout(step,1300)}};step()};
+  }
+  function kabur(){
+    mech.innerHTML='<div class="arena" id="ar"><button class="big" id="bg" type="button"></button></div>';
+    const ar=$("ar"),b=$("bg");b.textContent=C.tombol;hint.textContent="Tombolnya di atas. Kalau berani.";
+    const TA=["Eits, meleset!","Kurang cepat.","Hampir. Hampir banget.","Hihuuu, lambat.","Cieee gagal.","Tinggal dikit lagi, katanya."];
+    let d=0,lx=0,ly=0,go=false;const N=C.jumlah;
+    const place=(x,y)=>{b.style.left=x+"px";b.style.top=y+"px";lx=x;ly=y};
+    requestAnimationFrame(()=>place((ar.clientWidth-b.offsetWidth)/2,(ar.clientHeight-b.offsetHeight)/2));
+    const ready=()=>d>=N;
+    function dodge(){
+      const mx=Math.max(0,ar.clientWidth-b.offsetWidth-8),my=Math.max(0,ar.clientHeight-b.offsetHeight-8);let x,y,k=0;
+      do{x=4+Math.random()*mx;y=4+Math.random()*my;k++}while(k<12&&Math.hypot(x-lx,y-ly)<110);
+      place(x,y);d++;hint.textContent=TA[(d-1)%TA.length];try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}
+      if(ready()){b.classList.add("ok");b.textContent="YAUDAH, PENCET";hint.textContent="Oke oke, kali ini beneran bisa."}
+    }
+    b.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse"&&!ready()&&Math.random()<.7)dodge()});
+    b.addEventListener("pointerdown",e=>{if(!ready()){e.preventDefault();dodge()}});
+    b.addEventListener("click",()=>{if(!ready()){dodge();return}if(go)return;go=true;startMusic();download()});
+  }
+  function download(){
+    mech.innerHTML='<div class="pct" id="pc">0%</div><div class="bar"><i id="fi"></i></div>';hint.textContent="Menyiapkan kejutan…";
+    let p=0;const iv=setInterval(()=>{p=Math.min(99,p+(p<80?Math.ceil(Math.random()*9):1));$("pc").textContent=p+"%";$("fi").style.width=p+"%";
+      if(p===99){clearInterval(iv);hint.textContent="Nyangkut di 99%. Sabar ya…";setTimeout(reveal,2600)}},110);
+  }
+  function setup(){
+    stopAmbient();mech.innerHTML="";hint.textContent="";show("gate");
+    ({gift:gift,ketuk:ketuk,hitung:hitung,kabur:kabur}[C.mekanik]||gift)();
+  }
+  $("again").onclick=party;
+  $("replay").onclick=setup;
+  if(C.skip){C.musik=false;reveal()}else setup();
+})({"t":{"id":"prank","nama":"Prank","desc":"Tombol kabur, unduhan palsu, lalu kena!","bg":"#ffe94a","bg2":"#ffd60a","ink":"#16110a","muted":"#4a3f12","a":"#ff3b3b","b":"#3a6bff","cards":["#fffdf2","#ff7ad9","#7ad0ff","#ffffff"],"cardInk":"#16110a","btnInk":"#fffdf2","dark":false,"efek":"confetti","mood":"ceria","mekanik":"kabur","jumlah":6,"tombol":"PENCET AKU","eyebrowGate":"Peringatan resmi (bercanda)","gateTitle":"Coba pencet, hihuuu.","eyebrowReveal":"Hihuuu","judul":"PRANK! Kena kan, {nama}.","listTitle":"Tenang, ini cuma","pesan":"Nggak ada yang bahaya. Ini cuma prank dari orang-orang yang sayang sama kamu.","items":["Nggak ada PR.","Nggak ada virus.","Cuma ada kami yang lagi ngakak."]},"nama":"ELL apantat","dari":"Gilby ganteng sedunia","eyebrowGate":"Peringatan resmi (bercanda)","gateTitle":"Coba pencet, hihuuu.","eyebrowReveal":"Hihuuu","judul":"PRANK! Kena kan, ELL APANTAT","pesan":"Nggak ada yang bahaya. Ini cuma prank dari orang-orang yang sayang sama kamu.","listTitle":"Ell baik hati","items":["Apantat.","Hihu.","Kenapantat.","Digidaw.","Ga nanya."],"mekanik":"kabur","efek":"confetti","jumlah":10,"musik":true,"tombol":"PENCET AKU ELL","hitung":null});
+</script>
+</body>
+  </html>
